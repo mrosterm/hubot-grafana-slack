@@ -173,7 +173,7 @@ module.exports = (robot) ->
           else
             sendRobotResponse msg, title, imageUrl, link
       if (0 == panelsReturned)
-        msg.send "No panels found for '#{pname}'"
+        msg.send "No panels found for '#{pname}' in dashboard '#{slug}'"
 
   # Get a list of available dashboards
   robot.respond /(?:grafana|graph|graf) list\s?(.+)?/i, (msg) ->
