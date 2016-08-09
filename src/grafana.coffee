@@ -141,6 +141,7 @@ module.exports = (robot) ->
               template_map['$' + template.name] = template.current.text
 
       # Return dashboard rows
+      panelsReturned = 0
       panelNumber = 0
       for row in data.rows
         for panel in row.panels
@@ -168,8 +169,11 @@ module.exports = (robot) ->
           # Fork here for S3-based upload and non-S3
           if ((s3_bucket && s3_access_key && s3_secret_key) || slack_token)
             fetchAndUpload msg, title, imageUrl, link
+            panelsReturned += 1
           else
             sendRobotResponse msg, title, imageUrl, link
+      if (0 == panelsReturned)
+        msg.send "No panels found for '#{pname}'"
 
   # Get a list of available dashboards
   robot.respond /(?:grafana|graph|graf) list\s?(.+)?/i, (msg) ->
