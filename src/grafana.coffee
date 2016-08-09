@@ -293,7 +293,7 @@ module.exports = (robot) ->
     req = request.post uri, (err, res, body) ->
       if (err)
         return robot.logger.error err
-      robot.logger.debug "Uploaded file to Slack"
+      robot.logger.debug "Uploaded file #{filename} with title #{title} to Slack #{msg.message.room}"
 
     form = req.form()
     form.append 'file', content, {
